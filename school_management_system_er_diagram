@@ -1,0 +1,78 @@
+digraph "ER Diagram" {
+	Teachers [label="Teachers
+Reg_no (PK)
+name
+contact" shape=rectangle]
+	Students [label="Students
+Admission_no (PK)
+name
+contact
+enrollmentDate
+class_id (FK)" shape=rectangle]
+	Classes [label="Classes
+class_id (PK)
+name" shape=rectangle]
+	Subjects [label="Subjects
+Subject_id (PK)
+name" shape=rectangle]
+	Grades [label="Grades
+Grade_id (PK)
+studentId (FK)
+subjectId (FK)
+grade" shape=rectangle]
+	TeachersSubjects [label="TeachersSubjects
+teacherId (FK)
+subjectId (FK)" shape=rectangle]
+	T_Reg_no [label=<u>Reg_no</u> shape=ellipse]
+	T_name [label=name shape=ellipse]
+	T_contact [label=contact shape=ellipse]
+	S_Admission_no [label=<u>Admission_no</u> shape=ellipse]
+	S_name [label=name shape=ellipse]
+	S_contact [label=contact shape=ellipse]
+	S_enrollmentDate [label=enrollmentDate shape=ellipse]
+	S_class_id [label=class_id shape=ellipse]
+	C_class_id [label=<u>class_id</u> shape=ellipse]
+	C_name [label=name shape=ellipse]
+	Sub_Subject_id [label=<u>Subject_id</u> shape=ellipse]
+	Sub_name [label=name shape=ellipse]
+	G_Grade_id [label=<u>Grade_id</u> shape=ellipse]
+	G_studentId [label=studentId shape=ellipse]
+	G_subjectId [label=subjectId shape=ellipse]
+	G_grade [label=grade shape=ellipse]
+	TS_teacherId [label=teacherId shape=ellipse]
+	TS_subjectId [label=subjectId shape=ellipse]
+	enrolls [label=ENROLLS shape=diamond]
+	offers [label=OFFERS shape=diamond]
+	receives [label=RECEIVES shape=diamond]
+	teaches [label=TEACHES shape=diamond]
+	has [label=HAS shape=diamond]
+	Students -> enrolls
+	enrolls -> Classes
+	Classes -> offers
+	offers -> Subjects
+	Students -> receives
+	receives -> Grades
+	Grades -> Subjects
+	Teachers -> teaches
+	teaches -> Subjects
+	Grades -> has
+	has -> Students
+	Teachers -> T_Reg_no
+	Teachers -> T_name
+	Teachers -> T_contact
+	Students -> S_Admission_no
+	Students -> S_name
+	Students -> S_contact
+	Students -> S_enrollmentDate
+	Students -> S_class_id
+	Classes -> C_class_id
+	Classes -> C_name
+	Subjects -> Sub_Subject_id
+	Subjects -> Sub_name
+	Grades -> G_Grade_id
+	Grades -> G_studentId
+	Grades -> G_subjectId
+	Grades -> G_grade
+	TeachersSubjects -> TS_teacherId
+	TeachersSubjects -> TS_subjectId
+}
