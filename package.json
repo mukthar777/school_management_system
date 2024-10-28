@@ -12,6 +12,7 @@
     "@prisma/client": "^5.20.0",
     "@vercel/postgres": "^0.10.0",
     "dotenv": "^16.4.5",
+    "drizzle-kit": "^0.26.2",
     "drizzle-orm": "^0.35.3",
     "next": "14.2.15",
     "pg": "^8.13.0",

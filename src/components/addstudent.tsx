@@ -10,15 +10,51 @@ const AddStudent: React.FC = () => {
     classId: '',
   });
 
+  const [statusMessage, setStatusMessage] = useState<string | null>(null); // State for status messages
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Student Data:', formData);
-    // Add logic to save data to DB
+
+    try {
+      const response = await fetch("/api/students", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          classId: parseInt(formData.classId, 10), // Convert to integer
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add student");
+      }
+
+      const result = await response.json();
+      console.log("Student added:", result);
+
+      // Show success message and clear the form
+      setStatusMessage("Student added successfully!");
+      setFormData({
+        admissionNo: '',
+        name: '',
+        contact: '',
+        enrollmentDate: '',
+        classId: '',
+      });
+
+      // Clear the status message after 3 seconds
+      setTimeout(() => setStatusMessage(null), 3000);
+    } catch (error) {
+      console.error("Error:", error);
+      setStatusMessage("Failed to add student. Please try again.");
+    }
   };
 
   return (
@@ -77,6 +113,11 @@ const AddStudent: React.FC = () => {
             Add Student
           </button>
         </form>
+        {statusMessage && (
+          <p className="text-center text-sm text-green-500 mt-2">
+            {statusMessage}
+          </p>
+        )}
       </div>
     </div>
   );
